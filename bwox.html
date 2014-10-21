@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>保卫偶像</title>
+    <link rel="icon" type="image/GIF" href="res/favicon.ico"/>
+    <meta name="viewport" content="width=321, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <style>
+        canvas {
+            image-rendering: optimizeSpeed;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: -o-crisp-edges;
+            image-rendering: optimize-contrast;
+            -ms-interpolation-mode: nearest-neighbor;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="640" height="960"></canvas>
+
+    <script type="text/javascript" src="WeixinApi.js"></script>
+    <script type="text/javascript">
+          window.onload = function(){
+              cc.game.onStart = function(){
+                  if (cc.sys.isMobile)
+                      cc.view.setDesignResolutionSize(640,960,cc.ResolutionPolicy.EXACT_FIT);
+                  else cc.view.setDesignResolutionSize(640,960,cc.ResolutionPolicy.SHOW_ALL);
+                  cc.view.resizeWithBrowserSize(true);
+                  cc.view.adjustViewPort(true);
+                  //load resources
+                  var g_resources = [
+                      //music
+                      //image
+                      "img/wx_send.png",
+                      "img/wx_share.png",
+                      "img/wx_point.png",
+                      "img/num_3.png",
+                      "img/num_2.png",
+                      "img/num_1.png",
+                      "img/num_blue.png",
+                      "img/go.png",
+                      "img/buttonshare.png",
+                      "img/icon.png",
+                      "img/pointto.png",
+                      "img/game_end.png",
+                      "img/time_2.png",
+                      "img/time_1.png",
+                      "img/topBackgroud.png",
+                      "img/liy_hate_5.png",
+                      "img/liy_hate_4.png",
+                      "img/liy_hate_3.png",
+                      "img/liy_hate_2.png",
+                      "img/liy_hate_1.png",
+                      "img/liy_wait_1.png",
+                      "img/beginButton.png",
+                      "img/logo.png",
+                      "img/backgroud.png",
+                      "img/buttonAgain.png",
+                      "img/badpeople.png",
+                      "img/badpeople.plist",
+                      "img/hanhpeople.png",
+                      "img/hanhpeople.plist",
+                      "img/liypeople.png",
+                      "img/liypeople.plist",
+                      "img/guojmpeople.plist",
+                      "img/guojmpeople.png",
+                      "img/num.png",
+                      "img/str_gameend.png",
+                      "img/str_popularity.png",
+                      "img/advertising.png",
+                      "img/dialogue_1.png",
+                      "img/dialogue_2.png",
+                      "img/dialogue_3.png",
+                      "img/boss_hate_1.png",
+                      "img/boss_wait_1.png",
+                      "img/boss_fly_1.png",
+                      "img/boss_tip.png",
+                      "img/boss_dialogue.png",
+                      "img/finger.png",
+                      "img/txweibo.png",
+                      "img/weibo.png",
+                      "img/weixin_1.png",
+                      "img/weixin_2.png",
+                      "img/backGroudShare.png",
+                      "img/buttonQuitShare.png",
+                      "img/dialogue_4.png",
+                      "img/dialogue_5.png",
+                      "img/backgroudbuy.png",
+                      "img/buttonbuy.png",
+                      "img/closebuy.png",
+                      "img/buttonsingle.png",
+                      "img/buttonteam.png",
+                      "img/backgroudfriend.png",
+                      "img/buttonback.png",
+                      "img/backavatar.png",
+                      "img/backteam.png",
+                      "img/baseavatar.png",
+                      "img/vs.png",
+                      "img/buttonadd.png",
+                      "img/backCrazyTime.png",
+                      "img/crazyEnergy.png",
+                      "img/crazyModel.png",
+                      "img/buttonHelp.png",
+                      "img/help_wala.png",
+                      "img/people_all.png",
+                      "img/back.png",
+                      "img/label_lose.png",
+                      "img/label_win.png",
+                      "img/label_popularity.png"
+                  ];
+                  for(i=1; i<21; i++){
+                    var num = "img/expression_" + i + ".png";
+                      g_resources.push(num);
+                  }
+                  cc.LoaderScene.preload(g_resources, function () {
+                      cc.director.runScene(new HelloWorldScene());
+                  }, this);
+              };
+              cc.game.run("gameCanvas");
+          };
+          window.wxData = {
+              "appId": "", // 服务号可以填写appId
+              "imgUrl":'http://bwox.lomcoo.com/img/icon.png',
+              "link":'http://api.51wala.com/h5/wala/bwox.html',
+              "desc":"守护梦想，保卫偶像！中国梦之声，偶像需要你来保护！",
+              "title":"保卫偶像"
+          };
+          window.wxFriend = {
+              "appId": "", // 服务号可以填写appId
+              "imgUrl":'http://bwox.lomcoo.com/img/icon.png',
+              "link":'http://api.51wala.com/h5/wala/bwox.html',
+              "desc":'守护梦想，保卫偶像！中国梦之声，偶像需要你来保护！',
+              "title":"保卫偶像"
+          };
+          WeixinApi.ready(function(Api) {
+              var wxCallbacks = {
+                  ready : function() {
+                  },
+                  cancel : function(resp) {
+                  },
+                  fail : function(resp) {
+                  },
+                  confirm : function(resp) {
+                  },
+                  all : function(resp) {
+                  }
+              };
+              Api.shareToFriend(wxFriend, wxCallbacks);
+              Api.shareToTimeline(wxData, wxCallbacks);
+              Api.shareToWeibo(wxData, wxCallbacks);
+          });
+    </script>
+    <script type="text/javascript" src="mygame.js"></script>
+</body>
+</html>
